@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-07-14T02:10:31.366Z</updated>
+  <updated>2021-07-14T02:24:38.827Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,20 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>HCTF2018-admin</title>
+    <link href="http://example.com/2021/07/14/HCTF2018-admin/"/>
+    <id>http://example.com/2021/07/14/HCTF2018-admin/</id>
+    <published>2021-07-14T02:24:38.000Z</published>
+    <updated>2021-07-14T02:24:38.827Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>text_picture</title>
     <link href="http://example.com/2021/05/30/text-picture/"/>
     <id>http://example.com/2021/05/30/text-picture/</id>
     <published>2021-05-30T12:08:49.000Z</published>
-    <updated>2021-07-14T02:10:31.366Z</updated>
+    <updated>2021-07-14T02:28:47.754Z</updated>
     
-    <content type="html"><![CDATA[<p>测试上’</p><p>传图片</p><p><img src="/source/images/holmes.jpg"> </p>]]></content>
+    <content type="html"><![CDATA[<p>测试上’</p><p>传图片</p><p><img src="/images/holmes.jpg" alt="Alt text"> </p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;测试上’&lt;/p&gt;
 &lt;p&gt;传图片&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/source/images/holmes.jpg&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;/images/holmes.jpg&quot; alt=&quot;Alt text&quot;&gt;
  &lt;/p&gt;
 </summary>
       
