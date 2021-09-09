@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #0a3b39;
+  background: #b35978;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1507,25 +1507,6 @@ pre .javascript .function {
   .back-to-top {
     left: 20px;
     opacity: 0.8;
-  }
-}
-@media screen and (min-width: 900px) {
-  .back-to-top {
-    right: 60px;
-    width: 70px;
-    height: 900px;
-    top: -900px;
-    bottom: unset;
-    transition: all 0.5s ease-in-out;
-    background: url("/images/scroll.png");
-    position: fixed;
-  }
-  .back-to-top > i {
-    display: none;
-  }
-  .back-to-top.back-to-top-on {
-    bottom: unset;
-    top: calc(100vh - 900px - 200px);
   }
 }
 .post-body {
