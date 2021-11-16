@@ -20,19 +20,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="学而后知">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://example.com/categories/index.html">
+  <meta name="description" content="对于HTTP类相关题目的理解和总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP">
+<meta property="og:url" content="http://example.com/2021/11/16/HTTP/index.html">
 <meta property="og:site_name" content="cr0fyの博客">
-<meta property="og:description" content="学而后知">
+<meta property="og:description" content="对于HTTP类相关题目的理解和总结">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-23T12:18:53.000Z">
-<meta property="article:modified_time" content="2021-05-23T12:20:25.612Z">
+<meta property="og:image" content="http://example.com/images/image-20211116195835758.png">
+<meta property="og:image" content="http://example.com/images/image-20211116200944878.png">
+<meta property="og:image" content="http://example.com/images/image-20211116201316381.png">
+<meta property="og:image" content="http://example.com/images/image-20211116201546042.png">
+<meta property="article:published_time" content="2021-11-16T11:36:12.000Z">
+<meta property="article:modified_time" content="2021-11-16T12:16:15.085Z">
 <meta property="article:author" content="cr0fy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image-20211116195835758.png">
 
-<link rel="canonical" href="http://example.com/categories/">
+<link rel="canonical" href="http://example.com/2021/11/16/HTTP/">
 
 
 <script id="page-configurations">
@@ -40,13 +45,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类 | cr0fyの博客
-</title>
+  <title>HTTP | cr0fyの博客</title>
   
 
 
@@ -155,51 +159,119 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/16/HTTP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="cr0fy">
+      <meta itemprop="description" content="学而后知">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cr0fyの博客">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HTTP
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">分类
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
+              <time title="创建时间：2021-11-16 19:36:12 / 修改时间：20:16:15" itemprop="dateCreated datePublished" datetime="2021-11-16T19:36:12+08:00">2021-11-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">知识点</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>对于HTTP类相关题目的理解和总结</p>
+<span id="more"></span>
+
+<p>在BP抓的包中可以修改header头，即对抓到的包进行修改，那我们就可以更改它的一些信息以符合题目要求</p>
+<p>例如[极客大挑战 2019]Http</p>
+<h1 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h1><p><img src="/images/image-20211116195835758.png" alt="image-20211116195835758"></p>
+<p>面对这种情况是需要加Referer</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referer: https:<span class="regexp">//</span>Sycsecret.buuoj.cn</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h1><p>这个头是设定游览器的</p>
+<p><img src="/images/image-20211116200944878.png" alt="image-20211116200944878"></p>
+<p>面对这种情况说要用Syclover游览器打开的，就需要修改User-Agent</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">User</span>-Agent: Syclover</span><br></pre></td></tr></table></figure>
+
+<p>题目要求的游览器大部分都是不存在的，但只要字符对了就行</p>
+<h1 id="XFF-X-Forwarded-For"><a href="#XFF-X-Forwarded-For" class="headerlink" title="XFF(X-Forwarded-For)"></a>XFF(X-Forwarded-For)</h1><p>这个类型出的题比较多，修改XFF就是修改IP地址</p>
+<p><img src="/images/image-20211116201316381.png" alt="image-20211116201316381"></p>
+<p>它说需要本地访问，那只需要添加</p>
+<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">X-Forwarded-For</span>: 127.0.0.1</span><br><span class="line">或者</span><br><span class="line"><span class="attribute">X-Forwarded-For</span>: localhost</span><br></pre></td></tr></table></figure>
+
+<p>即可绕过</p>
+<p><img src="/images/image-20211116201546042.png" alt="image-20211116201546042"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/15/%E5%AF%B9%E4%BA%8Emd5%E4%B8%8Esha1%E7%9A%84%E5%BC%BA%E5%BC%B1%E7%A2%B0%E6%92%9E/" rel="prev" title="对于md5与sha1的强弱碰撞">
+      <i class="fa fa-chevron-left"></i> 对于md5与sha1的强弱碰撞
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <div class="category-all-page">
-            <div class="category-all-title">
-              目前共计 4 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BUU%E5%88%B7%E9%A2%98/">BUU刷题</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/sql%E6%B3%A8%E5%85%A5/">sql注入</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%9F%A5%E8%AF%86%E7%82%B9/">知识点</a><span class="category-list-count">2</span></li></ul>
-            </div>
-          </div>
-        
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
@@ -250,6 +322,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Referer"><span class="nav-number">1.</span> <span class="nav-text">Referer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#User-Agent"><span class="nav-number">2.</span> <span class="nav-text">User-Agent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XFF-X-Forwarded-For"><span class="nav-number">3.</span> <span class="nav-text">XFF(X-Forwarded-For)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

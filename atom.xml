@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-16T01:42:26.263Z</updated>
+  <updated>2021-11-16T12:16:15.085Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HTTP</title>
+    <link href="http://example.com/2021/11/16/HTTP/"/>
+    <id>http://example.com/2021/11/16/HTTP/</id>
+    <published>2021-11-16T11:36:12.000Z</published>
+    <updated>2021-11-16T12:16:15.085Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于HTTP类相关题目的理解和总结</p><span id="more"></span><p>在BP抓的包中可以修改header头，即对抓到的包进行修改，那我们就可以更改它的一些信息以符合题目要求</p><p>例如[极客大挑战 2019]Http</p><h1 id="Referer"><a href="#Referer" class="headerlink" title="Referer"></a>Referer</h1><p><img src="/images/image-20211116195835758.png" alt="image-20211116195835758"></p><p>面对这种情况是需要加Referer</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referer: https:<span class="regexp">//</span>Sycsecret.buuoj.cn</span><br></pre></td></tr></table></figure><h1 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h1><p>这个头是设定游览器的</p><p><img src="/images/image-20211116200944878.png" alt="image-20211116200944878"></p><p>面对这种情况说要用Syclover游览器打开的，就需要修改User-Agent</p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">User</span>-Agent: Syclover</span><br></pre></td></tr></table></figure><p>题目要求的游览器大部分都是不存在的，但只要字符对了就行</p><h1 id="XFF-X-Forwarded-For"><a href="#XFF-X-Forwarded-For" class="headerlink" title="XFF(X-Forwarded-For)"></a>XFF(X-Forwarded-For)</h1><p>这个类型出的题比较多，修改XFF就是修改IP地址</p><p><img src="/images/image-20211116201316381.png" alt="image-20211116201316381"></p><p>它说需要本地访问，那只需要添加</p><figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">X-Forwarded-For</span>: 127.0.0.1</span><br><span class="line">或者</span><br><span class="line"><span class="attribute">X-Forwarded-For</span>: localhost</span><br></pre></td></tr></table></figure><p>即可绕过</p><p><img src="/images/image-20211116201546042.png" alt="image-20211116201546042"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;对于HTTP类相关题目的理解和总结&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="知识点" scheme="http://example.com/categories/%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>对于md5与sha1的强弱碰撞</title>
